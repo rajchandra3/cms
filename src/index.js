@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var nodemailer = require('nodemailer');
 var _ = require('underscore');
 var Show = require('./schema');
 var Controller = require('./controller');

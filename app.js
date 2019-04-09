@@ -3,8 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose =  require('mongoose');
 
-var indexRouter = require('./api/index');
+require('dotenv').config();
+var indexRouter = require('./src/index');
 
 var app = express();
 
@@ -29,6 +31,17 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+//CONNECTING TO MONGODB ON START
+mongoose.connect(process.env.MONGODB_URL,
+  { useNewUrlParser: true }, function(err) {
+  if (err) {
+      console.log(err);
+      process.exit(1);
+  } else {
+      console.log('DataBase ready to use...');
+  }
 });
 
 module.exports = app;
